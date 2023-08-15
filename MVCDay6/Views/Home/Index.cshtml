@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@inject IWebHostEnvironment webHost;
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h3 >Enviroment From Controller @ViewBag.ENV</h3>
+    <h3>Application Name From View @webHost.ApplicationName</h3>
+</div>
+<div class="container text-center">
+<a asp-action="Index" asp-controller="Customer" class="btn btn-outline-primary w-25">Customers</a>
+<a asp-action="Index" asp-controller="Order" class="btn btn-outline-info w-25" >Orders</a>
+</div>

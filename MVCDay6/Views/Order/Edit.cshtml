@@ -1,0 +1,49 @@
+﻿@model OrderViewModel
+@{
+	SelectList selectLists = ViewBag.Customers;
+}
+
+<div class="d-flex align-items-center justify-content-between">
+
+	<h1>Edit Order #@Model.Order.ID</h1>
+	<div class="d-flex align-items-center justify-content-between p-2">
+		<a asp-action="Details" asp-route-id="@Model.Order.ID" class="btn btn-outline-info mx-2">
+			View Order
+			<strong>#@Model.Order.ID</strong>
+		</a>
+		<a asp-action="Delete" asp-route-id="@Model.Order.ID" class="btn btn-outline-danger"
+		   onclick="return confirm('Are you sure you want to delete this Customer?')">Delete</a>
+		<a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.Order.CustID" class="mx-2 btn btn-outline-dark">
+			View Customer Page
+		</a>
+	</div>
+
+</div>
+<form asp-action="Edit" class="form">
+	<input asp-for="Order.ID" type="hidden" />
+	<div class="form-group">
+		<label asp-for="Order.Date"></label>
+		<input asp-for="Order.Date" class="form-control" />
+		<span asp-validation-for="Order.Date" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Order.TotalPrice"></label>
+		<input asp-for="Order.TotalPrice" class="form-control" type="number" />
+		<span asp-validation-for="Order.TotalPrice" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label class="control-label">Customers</label>
+		<select asp-for="Order.CustID" asp-items="selectLists" class="form-select">
+			<option value="-1 ">Choose A Customer</option>
+		</select>
+		<span asp-validation-for="Order.CustID" class="text-danger"></span>
+	</div>
+
+	<input type="submit" value="Edit" class="btn btn-info mt-3" />
+</form>
+<div class="d-flex align-items-center justify-content-between">
+	<h1>Products</h1>
+	<a asp-action="AddProduct" asp-route-id="@Model.Order.ID" class="btn btn-outline-info">Add a Product</a>
+</div>
+
+<partial name="_ProductsSection" model="@Model.OrderProducts" />

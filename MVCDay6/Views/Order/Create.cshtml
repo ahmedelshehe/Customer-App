@@ -1,0 +1,33 @@
+﻿@model Order
+@{
+	SelectList selectLists = ViewBag.Customers;
+}
+
+<h1>Add New Order</h1>
+
+<form asp-action="Create" class="form">
+
+	<div class="form-group">
+		<label asp-for="Date"></label>
+		<input asp-for="Date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")" />
+		<span asp-validation-for="Date" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="TotalPrice" class="control-label"></label>
+		<input asp-for="TotalPrice" class="form-control"type="number" />
+		<span asp-validation-for="TotalPrice"  class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label class="control-label">Customers</label>
+		<select asp-for="CustID" asp-items="selectLists" class="form-select">
+			<option value="-1 ">Choose A Customer</option>
+		</select>
+		<span asp-validation-for="CustID" class="text-danger"></span>
+	</div>
+	<div class="d-flex align-items-center justify-content-between">
+        <input type="submit" value="Add" class="btn btn-primary mt-3" />
+        <a asp-action="Index" class="btn btn-outline-success">Back to List</a>
+	</div>
+	
+</form>
+

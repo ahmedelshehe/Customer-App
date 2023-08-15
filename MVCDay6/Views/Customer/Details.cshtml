@@ -1,0 +1,72 @@
+﻿@model CustomerViewModel
+<div class="d-flex align-items-center justify-content-between">
+
+    <h1> <strong>@Model.Customer.Name</strong> Page</h1>
+    <div class="d-flex align-items-center justify-content-between p-2">
+        <a asp-action="Edit" asp-route-id="@Model.Customer.ID" class="btn btn-outline-info mx-2">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Customer.ID" class="btn btn-outline-danger"
+           onclick="return confirm('Are you sure you want to delete this Customer?')">Delete</a>
+        @if (Model.Orders.Count() != 0)
+        {
+            <form class="d-inline-block" asp-action="Index" asp-controller="Order" asp-route-CustID="@Model.Customer.ID" method="post">
+                <input asp-for="@Model.Customer.ID" type="hidden" />
+                <input type="submit" value="View Orders" class="btn btn-outline-warning m-1" />
+            </form>
+        }
+    </div>
+
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><label asp-for="Customer.ID"></label></td>
+                <td>@Model.Customer.ID</td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.Name"></label></td>
+                <td>@Model.Customer.Name</td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.Gender"></label></td>
+                <td>@Model.Customer.Gender</td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.email"></label></td>
+                <td>@Model.Customer.email</td>
+            </tr>
+            <tr>
+                <td><label>Orders</label></td>
+				<td>
+					@if (Model.Orders.Count() != 0)
+					{
+                        <label>@Model.Orders.Count() @(Model.Orders.Count() == 1 ? " Order" : " Orders")</label>
+                    }
+                    else
+                    {
+                        <label>No Orders Yet .</label>
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.phoneNum"></label></td>
+                <td>@Model.Customer.phoneNum</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a asp-action="Index" class="btn btn-outline-success">Back to List</a>
+
+</div>
+@foreach(Order order in Model.Orders)
+{
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+            <h1>Order #@order.ID Products</h1>
+            <a asp-action="AddProduct" asp-route-id="@order.ID" class="btn btn-outline-info">Add a Product</a>
+        </div>
+        <partial name="_ProductsSection" model="@order.OrderProducts"/>
+    </div>
+}
+

@@ -1,0 +1,27 @@
+﻿@model Customer
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Customer Deletion Confirmation</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+                <p>Are you sure you want to delete the customer with the following information?</p>
+
+                <ul>
+                    <li>Name: <strong>@Model.Name]</strong></li>
+                    <li>Email: <strong>@Model.email </strong></li>
+                    <li>Phone Number: <strong>@Model.phoneNum</strong></li>
+                </ul>
+
+                <p>Deleting this customer will permanently remove all of their data from our system.</p>
+
+                <form asp-controller="Customer" asp-action="Delete" asp-route-customer="@Model">
+                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                </form>
+            <a asp-action="Index" class="btn btn-info">Cancel</a>
+        </div>
+    </div>
+</div>

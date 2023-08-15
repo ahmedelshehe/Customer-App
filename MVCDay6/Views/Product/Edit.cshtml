@@ -1,0 +1,15 @@
+﻿@model Product
+
+<div class="container">
+    <h1>Edit Product</h1>
+
+    <form asp-action="Edit">
+        <img src="@Model.Image" class="card-img-top" style="height: 200px; object-fit: cover;" alt="No Image Yet">
+
+        <partial name="_InputsPartial" model="Model" />
+        <div class="d-flex align-items-center justify-content-between">
+            <input type="submit" value="Edit" class="btn btn-primary mt-3" />
+            <a asp-action="Index" class="btn btn-outline-success">Back to List</a>
+        </div>
+    </form>
+</div>

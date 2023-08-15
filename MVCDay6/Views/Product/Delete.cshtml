@@ -1,0 +1,11 @@
+﻿@model Product
+
+<h1>Delete Product Confirmation</h1>
+
+<p>Are you sure you want to delete the product?</p>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Yes" class="btn btn-danger"/>
+    @Html.ActionLink("No","Index","Product",null,new {@class="btn btn-outline-info"})
+</form>

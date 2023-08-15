@@ -1,0 +1,14 @@
+﻿@model Customer
+
+<div class="col">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Model.email</p>
+            <p class="card-text">@Model.phoneNum</p>
+            <a href="@Url.Action("Details", new { id = Model.ID })" class="btn btn-primary">View</a>
+            <a href="@Url.Action("Edit", new { id = Model.ID })" class="btn btn-secondary">Edit</a>
+            <a href="@Url.Action("Delete", new { id = Model.ID })" onclick="return confirm('Are you sure you want to delete this Customer?')" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿@model Product
+<div class="col-4">
+    <div class="card" style="height: 100%;">
+        <img src="@Model.Image" class="card-img-top" style="height: 200px; object-fit: cover;" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name </h5>
+            <h5 class="card-subtitle">@Model.Price $</h5>
+            <p class="card-text">@Model.Description</p>
+            <a href="@Url.Action("Details", new { id = Model.Id })" class="btn btn-primary">Details</a>
+            <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-secondary">Edit</a>
+            <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>

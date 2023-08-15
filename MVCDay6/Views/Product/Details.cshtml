@@ -1,0 +1,26 @@
+﻿@model Product
+<div class="d-flex align-items-center justify-content-between">
+
+    <h1> <strong>@Model.Name</strong></h1>
+    <div class="d-flex align-items-center justify-content-between p-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-info mx-2">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Delete</a>
+    </div>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 ">
+            <h4><strong>Product Description : </strong>@Model.Description</h4>
+            <h4><strong>Price</strong> Price: $@Model.Price</h4>
+        </div>
+        <div class="col-md-6 ">
+            <img src="@Model.Image" alt="Product Image" class="img-fluid" />
+        </div>
+
+    </div>
+
+    <a asp-action="Index" class="btn btn-outline-success">Back to List</a>
+
+</div>
+

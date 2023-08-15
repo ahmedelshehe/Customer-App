@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Order>
+@{
+    Order o = Model.FirstOrDefault();
+    SelectList selectLists = ViewBag.Customers;
+}
+<div class="d-flex align-items-center justify-content-between">
+	<h1>Order Table</h1>
+	<a asp-action="Create" class="btn btn-outline-info">Add an Order</a>
+</div>
+
+<form method="post" class="w-50">
+    <label  class="m-3 fw-bolder">Filter By Customers</label>
+    <div class="d-flex align-items-center justify-content-between">
+		<select name="CustID" asp-items="selectLists" class="form-select m-1">
+			<option value="-1">All Orders</option>
+		</select>
+		<input class="btn btn-outline-secondary" value="search" type="submit" />
+    </div>
+</form>
+@if (Model.Count() != 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><label asp-for="@o.ID"></label></th>
+                <th><label asp-for="@o.Date"></label></th>
+                <th><label asp-for="@o.TotalPrice"></label></th>
+                <th><label>Customer Name</label></th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                double Total = 0;
+                int orderCount = 0;
+                double overallTotal = 0;
+            }
+            @foreach (Order order in Model)
+            {
+                {
+                    foreach(OrderProduct orderProduct in order.OrderProducts)
+                    {
+                        Total += orderProduct.TotalPrice;
+                    }
+                    overallTotal += Total;
+                    orderCount++;
+                }
+                <tr>
+                    <td>@order.ID</td>
+                    <td>@order.Date</td>
+                    <td>@Total</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="Customer" asp-route-id="@order.CustID">
+                            @order.Customer.Name
+                        </a>
+                    </td>
+                    <td><a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@order.ID">Details</a> </td>
+                    <td><a class="btn btn-outline-info" asp-action="Edit" asp-route-id="@order.ID">Edit</a></td>
+                    <td>
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@order.ID" 
+                            onclick="return confirm('Are you sure you want to delete this Order?')">
+                        Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"><strong>Overall Total Profit:</strong> @overallTotal</td>
+
+                <td colspan="3">
+                    Number Of All Orders :<strong>@orderCount</strong>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+}
+else
+{
+    <div class="container m-4">
+		<h3>No Orders Yet</h3>
+    </div>
+
+}
+
